@@ -7,32 +7,16 @@ import Navbar from '../Navbar/Navbar.js'
 import About from '../About/About'
 import NotFound from '../NotFound';
 
-function Customer() {
-  const [cusLocation, setcusLocation] = useState(null)
-  const getcustomerLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        let pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        setcusLocation(pos)
-      });
-    }
-  }
-
-  useEffect(() => {
-    getcustomerLocation()
-  }, []);
-  
+function Customer({cusLocation}) {
   return (
     <>
     <Navbar customerPage={true} />
     <Routes>
-        <Route path="home" element={<Home cusLocation={cusLocation} />} />
-        <Route path="restaurant/:resId" element={<Restaurant />} />
-        <Route path="feedback" element={<Feedback cusLocation={cusLocation} />} />
+      <Route path="/home" element={<Home cusLocation={cusLocation} />} />
+      <Route path="restaurant/:resId" element={<Restaurant />} />
+      <Route path="feedback" element={<Feedback cusLocation={cusLocation} />} />
       <Route path="about" element={<About />} />
+      <Route path="/" element={<Home cusLocation={cusLocation} />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
     </>
